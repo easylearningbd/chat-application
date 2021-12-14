@@ -9,4 +9,4 @@ const decorateHtmlResponse = require("../middlewares/commons/decorateHtmlRespons
 // Login Page 
 router.get("/", decorateHtmlResponse("Users"), getUsers);
 
-module.exports = router;
+module.exports = router; 
