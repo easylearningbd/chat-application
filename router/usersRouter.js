@@ -20,5 +20,7 @@ addUserValidationHandler,
 addUser
 );
 
+router.delete("/:id",removeUser);
+
 
 module.exports = router; 
