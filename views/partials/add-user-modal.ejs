@@ -32,7 +32,7 @@
    </div>
    <script>
      const modal = document.querySelector("#add-user-modal");
-     const form = document.querySelector("#add-user-form")
+     const form = document.querySelector("#add-user-form");
 
      // Success Toast 
      const successToast = Toastify({
@@ -48,7 +48,7 @@
      }
 
      // Form submit handler 
-     form.onSubmit = async function (event) {
+     form.onsubmit = async function (event) {
           event.preventDefault();
 
      const errorPlaceholders = document.querySelectorAll("p.error");
@@ -79,6 +79,7 @@
                 // add error clas to all input filed 
                 form[fieldName].classList.add("error");
                 const errorPlaceholder = document.querySelector(`.${fieldName}-error`);
+                errorPlaceholder.textContent = result.errors[fieldName].msg;
                 errorPlaceholder.style.display = "block";
            });
       } else {
