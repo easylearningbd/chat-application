@@ -7,8 +7,15 @@ const path = require("path");
 const User = require("../models/People");
 
 // get user from database 
-function getUsers(req,res,next){
-     res.render("users");
+async function getUsers(req,res,next){
+    try{
+         const users = await User.find();
+         res.render("users", {
+              users:users,
+         });
+    }catch (err) {
+          next(err);
+    }
 }
 
 
