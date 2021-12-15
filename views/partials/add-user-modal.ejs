@@ -32,10 +32,55 @@
    </div>
    <script>
      const modal = document.querySelector("#add-user-modal");
+     const form = document.querySelector("#add-user-form")
+
+     // Success Toast 
+     const successToast = Toastify({
+          text: "User was added successfully!",
+          duration:1000,
+     });
+
      function closeModal() {
        modal.style.display = "none";
      }
      function openModal() {
        modal.style.display = "block";
      }
+
+     // Form submit handler 
+     form.onSubmit = async function (event) {
+          event.preventDefault();
+
+
+      // for the form data 
+      const formData = new FormData(form);
+      // send the request to server 
+      let response = await fetch("/users" ,{
+           method: "POST",
+           body:formData,
+      });
+
+      // get resonse 
+      let result = await response.json();
+      if(result.errors){
+           // Errors data 
+           Object.keys(result.errors).forEach((fieldName) => {
+                // add error clas to all input filed 
+                form[fieldName].classList.add("error");
+                const errorPlaceholder = document.querySelector(`.${fieldName}-error`);
+                errorPlaceholder.style.display = "block";
+           });
+      } else {
+           
+      }
+
+
+     } // end onsubmit function
+
+
+
+
+
+
+
    </script>
