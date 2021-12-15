@@ -51,6 +51,17 @@
      form.onSubmit = async function (event) {
           event.preventDefault();
 
+     const errorPlaceholders = document.querySelectorAll("p.error");
+     for(let i = 0; i < errorPlaceholders.length; i++ ){
+          errorPlaceholders[i].style.display = "none";
+     }
+     const inputErrors = document.querySelectorAll("input.error");
+     if(inputErrors.length > 0){
+          for(let j = 0; j < inputErrors.length; j++) {
+               inputErrors[j].classList.remove("error");
+          }
+     }
+
 
       // for the form data 
       const formData = new FormData(form);
@@ -71,11 +82,17 @@
                 errorPlaceholder.style.display = "block";
            });
       } else {
-           
-      }
+           // sucess 
+           successToast.showToast();
+           closeModal();
+           document.querySelector("p.error").style.display = "none";
+           // reload this page after 1 sec
+           setTimeout(() => {
+                location.reload();
+           }, 1000); 
+      } 
 
-
-     } // end onsubmit function
+     };// end onsubmit function
 
 
 
