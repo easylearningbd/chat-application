@@ -3,6 +3,7 @@ const router = express.Router();
 
 // internal imports 
 const { getUsers, addUser,removeUser } = require("../controller/usersController");
+const { checkLogin } = require("../middlewares/commons/checkLogin");
 const decorateHtmlResponse = require("../middlewares/commons/decorateHtmlResponse");
 
 const avatarUpload = require("../middlewares/users/avatarUpload");
@@ -10,7 +11,7 @@ const { addUserValidators, addUserValidationHandler } = require("../middlewares/
 
  
 // Login Page 
-router.get("/", decorateHtmlResponse("Users"), getUsers);
+router.get("/", decorateHtmlResponse("Users"), checkLogin, getUsers);
 
 /// Add User 
 router.post("/", 
