@@ -50,7 +50,7 @@ async function login(req, res, next){
                // set logged in user local identifier
                res.locals.loggedInUser = userObject;
                res.render("inbox");
-               
+
             } else{
                  throw createError("Login Failed plese try again");
             }
@@ -72,10 +72,15 @@ async function login(req, res, next){
 
 }
 
-
+// Logout 
+function logout(req, res){
+     res.clearCookie(process.env.COOKIE_NAME);
+     res.send("Logged Out User");
+}
 
 
 module.exports = {
      getLogin,
      login,
+     logout,
 } 
