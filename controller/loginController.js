@@ -25,7 +25,7 @@ async function login(req, res, next){
                     user.password
                );
 
-               if(isValidPassword)
+               if(isValidPassword) {
                // prepare the user object to generate token 
                const userObject = {
                     username: user.name,
@@ -35,8 +35,39 @@ async function login(req, res, next){
                };
 
                // Generate Token
-          }
 
+               const token = jwt.sign(userObject, process.env.JWT_SECRET,{
+                    expiresIn: process.env.JWT_EXPIRY,
+               });
+
+               // SET Cookie 
+               res.cookie(process.env.COOKIE_NAME,token, {
+                    maxAge : process.env.JWT_EXPIRY,
+                    httpOnly: true,
+                    signed: true,
+               });
+
+               // set logged in user local identifier
+               res.locals.loggedInUser = userObject;
+               res.render("inbox");
+               
+            } else{
+                 throw createError("Login Failed plese try again");
+            }
+          } else {
+               throw createError("Login Failed plese try again");
+          }
+     } catch (err) {
+          res.render("index",{
+               data:{
+                    username: req.body.username,
+               },
+               errors:{
+                    common:{
+                         msg : err.message,
+                    },
+               },
+          });
      }
 
 }
